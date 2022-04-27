@@ -107,6 +107,21 @@ export class list {
       }
     );
     this.generatedMiddlewares[this.serviceName]['MyMidd'] = mw_MyMidd;
+    let mw_MyMiddl2: Middleware = new Middleware(
+      this.serviceName,
+      'MyMiddl2',
+      async (req, res, next) => {
+        let bh = {};
+        try {
+          bh = this.sdService.__constructDefault({ local: {} }, req, res, next);
+          bh = await this.sd_4kVFpJjUo905rrnI(bh);
+          //appendnew_next_sd_8TsnLlnuEz3T4ewq
+        } catch (e) {
+          return await this.errorHandler(bh, e, 'sd_8TsnLlnuEz3T4ewq');
+        }
+      }
+    );
+    this.generatedMiddlewares[this.serviceName]['MyMiddl2'] = mw_MyMiddl2;
     //appendnew_flow_list_MiddlewareStart
   }
   private mountAllPaths() {
@@ -137,7 +152,7 @@ export class list {
       `${this.serviceBasePath}/blogs`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        'blogMiddleware',
+        'IDSAuthroizedAPIs',
         'pre',
         this.generatedMiddlewares
       ),
@@ -158,7 +173,7 @@ export class list {
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        'blogMiddleware',
+        'IDSAuthroizedAPIs',
         'post',
         this.generatedMiddlewares
       )
@@ -198,14 +213,14 @@ export class list {
       } else {
         throw new Error('Cannot find the selected config name');
       }
-      let params = undefined;
+      let params = [];
       params = params ? params : [];
       bh.local.blogs = await new GenericRDBMSOperations().executeSQL(
         connectionName,
         bh.local.query,
         params
       );
-      await this.hTTPResponse(bh);
+      bh = await this.blogListScript1(bh);
       //appendnew_next_sQLQuery
       return bh;
     } catch (e) {
@@ -213,10 +228,21 @@ export class list {
     }
   }
 
+  async blogListScript1(bh) {
+    try {
+      bh.web.req.blogs = bh.local.blogs;
+
+      await this.hTTPResponse(bh);
+      //appendnew_next_blogListScript1
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_ihvQqh5xH51dIUzj');
+    }
+  }
+
   async hTTPResponse(bh) {
     try {
-      bh.web.res.status(200).send(bh.local.blogs);
-
+      bh.web.next();
       return bh;
     } catch (e) {
       return await this.errorHandler(bh, e, 'sd_eagPH1D0HKqzBTks');
@@ -308,6 +334,27 @@ export class list {
       return bh;
     } catch (e) {
       return await this.errorHandler(bh, e, 'sd_KvM72s1Vj3xNE4Et');
+    }
+  }
+
+  async sd_4kVFpJjUo905rrnI(bh) {
+    try {
+      console.log('Hi Mid 2');
+      await this.sd_6oGnveIpCsPI5vyX(bh);
+      //appendnew_next_sd_4kVFpJjUo905rrnI
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_4kVFpJjUo905rrnI');
+    }
+  }
+
+  async sd_6oGnveIpCsPI5vyX(bh) {
+    try {
+      bh.web.res.status(201).send(bh.web.req.blogs);
+
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_6oGnveIpCsPI5vyX');
     }
   }
 

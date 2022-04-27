@@ -36,7 +36,11 @@
                         "list": "MyMidd"
                     }
                 ],
-                "post": []
+                "post": [
+                    {
+                        "list": "MyMiddl2"
+                    }
+                ]
             }
         }
     },

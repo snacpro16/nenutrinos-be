@@ -243,7 +243,7 @@
         "inputs": 0,
         "outputs": 1,
         "category": "Middleware",
-        "x": 145,
+        "x": 85,
         "y": 360,
         "wires": [
             [
@@ -263,11 +263,11 @@
         "inputs": 1,
         "outputs": 1,
         "category": "Middleware",
-        "x": 295,
+        "x": 325,
         "y": 360,
         "wires": [
             [
-                "sd_TXAul54a6s0lXNkr"
+                "sd_ommFacrNx7FCoX1X"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -283,7 +283,7 @@
         "inputs": 1,
         "outputs": 0,
         "category": "Middleware",
-        "x": 445,
+        "x": 585,
         "y": 360,
         "wires": [],
         "__n_excludedFromValidation__": {},
@@ -302,6 +302,24 @@
         "wires": [
             [
                 "sd_KO9LTkDjHvKObwAq"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true
+    },
+    {
+        "id": "sd_ommFacrNx7FCoX1X",
+        "type": "list:MyMiddl2",
+        "z": "ssd_mw_ws",
+        "name": "list:MyMiddl2",
+        "inputs": 1,
+        "outputs": 1,
+        "category": "Service",
+        "x": 405,
+        "y": 360,
+        "wires": [
+            [
+                "sd_TXAul54a6s0lXNkr"
             ]
         ],
         "__n_excludedFromValidation__": {},

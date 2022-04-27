@@ -14,7 +14,10 @@ export default {
     post: [],
     sequences: {
       IDSAuthroizedAPIs: { pre: [{ ids: 'Authorize' }], post: [] },
-      blogMiddleware: { pre: [{ list: 'MyMidd' }], post: [] },
+      blogMiddleware: {
+        pre: [{ list: 'MyMidd' }],
+        post: [{ list: 'MyMiddl2' }],
+      },
     },
   },
   ids: {

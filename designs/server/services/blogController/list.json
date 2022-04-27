@@ -23,7 +23,7 @@
         "summary": "Fetching blogs list",
         "description": "for fetching details call the API with GET  method",
         "method": "get",
-        "sequenceId": "blogMiddleware",
+        "sequenceId": "IDSAuthroizedAPIs",
         "consumes": "",
         "produces": "",
         "filetype": "path",
@@ -88,13 +88,11 @@
             "value": 200,
             "ssd_typedInputField": true
         },
-        "responseType": "obj",
+        "responseType": "next",
         "responseMapping": {
             "status": 200,
-            "obj": "bh.local.blogs",
-            "send": "bh.local.blogs"
+            "next": "bh.local.blogs"
         },
-        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -107,7 +105,7 @@
         },
         "functionName": "hTTPResponse",
         "category": "HTTP",
-        "x": 485,
+        "x": 585,
         "y": 80,
         "wires": [],
         "__n_excludedFromValidation__": {},
@@ -125,7 +123,7 @@
         "script": "bh.local.query = 'SELECT * FROM blogs';\n// bh.local.query = 'Delete FROM blogs where id=0';\n// throw  new Error(2)",
         "functionName": "blogListScript",
         "category": "Function",
-        "x": 245,
+        "x": 265,
         "y": 80,
         "wires": [
             [
@@ -134,7 +132,8 @@
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
-        "generated": true
+        "generated": true,
+        "serviceName": "list"
     },
     {
         "id": "sd_DHCkLhd7VKpj1QvD",
@@ -144,7 +143,6 @@
         "nodeType": "flow",
         "name": "SQL Query",
         "databaseConfig": "sd_etWr60jvxRofVqty",
-        "queryType": "",
         "resultMap": {
             "type": "bh.local",
             "value": "blogs"
@@ -157,7 +155,6 @@
         "inputs": 1,
         "outputs": 1,
         "params": [],
-        "paramMappingObj": {},
         "dbType": "postgres",
         "functionName": "sQLQuery",
         "category": "Storage",
@@ -165,7 +162,7 @@
         "y": 80,
         "wires": [
             [
-                "sd_eagPH1D0HKqzBTks"
+                "sd_ihvQqh5xH51dIUzj"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -405,6 +402,113 @@
         "wires": [
             [
                 "sd_KvM72s1Vj3xNE4Et"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_6oGnveIpCsPI5vyX",
+        "type": "MiddlewareEnd",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {},
+        "responseBody": {
+            "type": "bh",
+            "value": "web.req.blogs",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 201,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 201,
+            "obj": "bh.web.req.blogs",
+            "send": "bh.web.req.blogs"
+        },
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_6oGnveIpCsPI5vyX",
+        "category": "HTTP",
+        "x": 405,
+        "y": 580,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_8TsnLlnuEz3T4ewq",
+        "type": "MiddlewareStart",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "MyMiddl2",
+        "inputs": 0,
+        "outputs": 1,
+        "category": "HTTP",
+        "x": 125,
+        "y": 600,
+        "wires": [
+            [
+                "sd_4kVFpJjUo905rrnI"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "list",
+        "functionName": "sd_8TsnLlnuEz3T4ewq"
+    },
+    {
+        "id": "sd_4kVFpJjUo905rrnI",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log(\"Hi Mid 2\")",
+        "functionName": "sd_4kVFpJjUo905rrnI",
+        "category": "Function",
+        "x": 245,
+        "y": 600,
+        "wires": [
+            [
+                "sd_6oGnveIpCsPI5vyX"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_ihvQqh5xH51dIUzj",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Blog list Script1",
+        "script": "\nbh.web.req.blogs=bh.local.blogs\n",
+        "functionName": "blogListScript1",
+        "category": "Function",
+        "x": 465,
+        "y": 80,
+        "wires": [
+            [
+                "sd_eagPH1D0HKqzBTks"
             ]
         ],
         "__n_excludedFromValidation__": {},
