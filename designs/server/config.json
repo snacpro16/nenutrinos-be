@@ -29,6 +29,14 @@
                     }
                 ],
                 "post": []
+            },
+            "blogMiddleware": {
+                "pre": [
+                    {
+                        "list": "MyMidd"
+                    }
+                ],
+                "post": []
             }
         }
     },

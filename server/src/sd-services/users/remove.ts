@@ -160,7 +160,8 @@ export class remove {
 
   async userDeleteScript(bh) {
     try {
-      bh.local.query = `DELETE FROM users where name=${bh.input.params.name}`;
+      bh.local.query =
+        "DELETE FROM users where name='" + bh.input.params.name + "'";
 
       bh.local.response = {
         status: 200,

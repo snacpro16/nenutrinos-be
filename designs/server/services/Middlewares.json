@@ -6,7 +6,6 @@
         "label": "Middlewares",
         "disabled": false,
         "info": "",
-        "viewType": "server",
         "generateNext": true,
         "relativeParentPath": ""
     },
@@ -14,8 +13,11 @@
         "id": "ssd_global_middleware_start_id",
         "type": "GlobalMiddlewareStart",
         "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "flow",
         "inputs": 0,
         "outputs": 1,
+        "category": "Middleware",
         "x": 141,
         "y": 102.8125,
         "wires": [
@@ -23,14 +25,18 @@
                 "sd_C9VRO0iOLqxUzNzT"
             ]
         ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
         "id": "ssd_global_next_id",
         "type": "GlobalNext",
         "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "flow",
         "inputs": 1,
         "outputs": 1,
+        "category": "Middleware",
         "x": 701,
         "y": 102.8125,
         "wires": [
@@ -38,18 +44,23 @@
                 "ssd_global_middleware_end_id"
             ]
         ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
         "id": "ssd_global_middleware_end_id",
         "type": "GlobalMiddlewareEnd",
         "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "flow",
         "name": "",
         "inputs": 1,
         "outputs": 0,
+        "category": "Middleware",
         "x": 841,
         "y": 102.8125,
         "wires": [],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
@@ -58,6 +69,7 @@
         "z": "ssd_mw_ws",
         "viewType": "server",
         "nodeType": "middleware",
+        "name": "",
         "methods": [],
         "origin": true,
         "editableListData": {
@@ -78,6 +90,7 @@
         "maxAge": "",
         "preflightContinue": false,
         "optionsSuccessStatus": "",
+        "functionName": "cors",
         "category": "Global",
         "x": 561,
         "y": 102.8125,
@@ -86,7 +99,7 @@
                 "ssd_global_next_id"
             ]
         ],
-        "functionName": "cors"
+        "__n_excludedFromValidation__": {}
     },
     {
         "id": "sd_7EmxxOk703exD5hF",
@@ -113,25 +126,25 @@
         "store": "",
         "functionName": "sd_7EmxxOk703exD5hF",
         "category": "Global",
-        "__ssdTypeInputs__": {
-            "secret": {
-                "type": "str",
-                "value": "qPXoLFLDtk"
-            }
-        },
         "x": 421,
         "y": 102.8125,
         "wires": [
             [
                 "sd_Tp9jNbUvUZ1kJnAn"
             ]
-        ]
+        ],
+        "__ssdTypeInputs__": {
+            "secret": {
+                "type": "str",
+                "value": "qPXoLFLDtk"
+            }
+        },
+        "__n_excludedFromValidation__": {}
     },
     {
         "id": "sd_C9VRO0iOLqxUzNzT",
         "type": "ids:hrefstart",
         "z": "ssd_mw_ws",
-        "viewType": "server",
         "name": "ids:hrefstart",
         "inputs": 1,
         "outputs": 1,
@@ -143,6 +156,7 @@
                 "sd_7EmxxOk703exD5hF"
             ]
         ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
@@ -162,13 +176,13 @@
                 "sd_ISirC5Fy6p3Du7i8"
             ]
         ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
         "id": "sd_ISirC5Fy6p3Du7i8",
         "type": "ids:Authorize",
         "z": "ssd_mw_ws",
-        "viewType": "server",
         "name": "ids:Authorize",
         "inputs": 1,
         "outputs": 1,
@@ -180,6 +194,7 @@
                 "sd_jK1yTPs7foxJ0sF9"
             ]
         ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
@@ -191,7 +206,6 @@
         "name": "",
         "inputs": 1,
         "outputs": 1,
-        "functionName": "sd_jK1yTPs7foxJ0sF9",
         "category": "Middleware",
         "x": 421,
         "y": 212.8125,
@@ -200,6 +214,7 @@
                 "sd_mSMwUAx7kHUdyb5B"
             ]
         ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     },
     {
@@ -211,11 +226,85 @@
         "name": "",
         "inputs": 1,
         "outputs": 0,
-        "functionName": "sd_mSMwUAx7kHUdyb5B",
         "category": "Middleware",
         "x": 561,
         "y": 212.8125,
         "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true
+    },
+    {
+        "id": "sd_GBuPduOwVTwEQ4Wg",
+        "type": "RouteMiddlewareStart",
+        "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "blogMiddleware",
+        "inputs": 0,
+        "outputs": 1,
+        "category": "Middleware",
+        "x": 145,
+        "y": 360,
+        "wires": [
+            [
+                "sd_TxlGRT0pNGGtaSMi"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true
+    },
+    {
+        "id": "sd_KO9LTkDjHvKObwAq",
+        "type": "Next",
+        "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "inputs": 1,
+        "outputs": 1,
+        "category": "Middleware",
+        "x": 295,
+        "y": 360,
+        "wires": [
+            [
+                "sd_TXAul54a6s0lXNkr"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true
+    },
+    {
+        "id": "sd_TXAul54a6s0lXNkr",
+        "type": "RouteMiddlewareEnd",
+        "z": "ssd_mw_ws",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "inputs": 1,
+        "outputs": 0,
+        "category": "Middleware",
+        "x": 445,
+        "y": 360,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true
+    },
+    {
+        "id": "sd_TxlGRT0pNGGtaSMi",
+        "type": "list:MyMidd",
+        "z": "ssd_mw_ws",
+        "name": "list:MyMidd",
+        "inputs": 1,
+        "outputs": 1,
+        "category": "Service",
+        "x": 220,
+        "y": 360,
+        "wires": [
+            [
+                "sd_KO9LTkDjHvKObwAq"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
         "generateNext": true
     }
 ]

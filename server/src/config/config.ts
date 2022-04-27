@@ -12,7 +12,10 @@ export default {
       { __ssdGlobalMiddlewares__: 'cors' },
     ],
     post: [],
-    sequences: { IDSAuthroizedAPIs: { pre: [{ ids: 'Authorize' }], post: [] } },
+    sequences: {
+      IDSAuthroizedAPIs: { pre: [{ ids: 'Authorize' }], post: [] },
+      blogMiddleware: { pre: [{ list: 'MyMidd' }], post: [] },
+    },
   },
   ids: {
     client_id: 'FFgi0sIQvFBUmlZBsMFNj',

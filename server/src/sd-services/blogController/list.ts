@@ -92,6 +92,21 @@ export class list {
   private mountAllMiddlewares() {
     log.debug('mounting all middlewares for service :: list');
 
+    let mw_MyMidd: Middleware = new Middleware(
+      this.serviceName,
+      'MyMidd',
+      async (req, res, next) => {
+        let bh = {};
+        try {
+          bh = this.sdService.__constructDefault({ local: {} }, req, res, next);
+          bh = await this.sd_DJocUXXGxJvT3b7U(bh);
+          //appendnew_next_sd_ee0n1dMdOHGjTkw7
+        } catch (e) {
+          return await this.errorHandler(bh, e, 'sd_ee0n1dMdOHGjTkw7');
+        }
+      }
+    );
+    this.generatedMiddlewares[this.serviceName]['MyMidd'] = mw_MyMidd;
     //appendnew_flow_list_MiddlewareStart
   }
   private mountAllPaths() {
@@ -122,7 +137,7 @@ export class list {
       `${this.serviceBasePath}/blogs`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'blogMiddleware',
         'pre',
         this.generatedMiddlewares
       ),
@@ -143,7 +158,7 @@ export class list {
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
-        null,
+        'blogMiddleware',
         'post',
         this.generatedMiddlewares
       )
@@ -271,6 +286,28 @@ export class list {
       return bh;
     } catch (e) {
       return await this.errorHandler(bh, e, 'sd_vhMiZz4Pwv3L6N33');
+    }
+  }
+
+  async sd_DJocUXXGxJvT3b7U(bh) {
+    try {
+      console.log('Hi Mid');
+      await this.sd_KvM72s1Vj3xNE4Et(bh);
+      //appendnew_next_sd_DJocUXXGxJvT3b7U
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_DJocUXXGxJvT3b7U');
+    }
+  }
+
+  async sd_KvM72s1Vj3xNE4Et(bh) {
+    try {
+      bh.web.res.set({ type: 'bh', value: '' });
+
+      bh.web.next();
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_KvM72s1Vj3xNE4Et');
     }
   }
 

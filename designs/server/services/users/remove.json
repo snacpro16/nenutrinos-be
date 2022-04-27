@@ -47,6 +47,7 @@
                 }
             }
         },
+        "uploadFileOptions": {},
         "editableListData": {
             "responses": [],
             "params": [
@@ -173,7 +174,7 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "User Delete script",
-        "script": "bh.local.query = `DELETE FROM users where name=${bh.input.params.name}`\n\nbh.local.response = {\n    status: 200,\n    message: 'User Deleted Successfully',\n}",
+        "script": "bh.local.query = \"DELETE FROM users where name='\" + bh.input.params.name + \"'\"\n\nbh.local.response = {\n    status: 200,\n    message: 'User Deleted Successfully',\n}",
         "functionName": "userDeleteScript",
         "category": "Function",
         "x": 242,

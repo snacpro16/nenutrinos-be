@@ -23,7 +23,7 @@
         "summary": "Fetching blogs list",
         "description": "for fetching details call the API with GET  method",
         "method": "get",
-        "sequenceId": "",
+        "sequenceId": "blogMiddleware",
         "consumes": "",
         "produces": "",
         "filetype": "path",
@@ -40,7 +40,6 @@
                 }
             }
         },
-        "uploadFileOptions": {},
         "editableListData": {
             "responses": [],
             "params": [],
@@ -113,7 +112,8 @@
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
-        "generated": true
+        "generated": true,
+        "serviceName": "list"
     },
     {
         "id": "sd_Oz8ikA0XSnKaaaME",
@@ -243,6 +243,7 @@
             "obj": "bh.local.error",
             "send": "bh.local.error"
         },
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -320,6 +321,90 @@
             ],
             [
                 "sd_vhMiZz4Pwv3L6N33"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_KvM72s1Vj3xNE4Et",
+        "type": "MiddlewareEnd",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "headers": {
+            "type": "bh",
+            "value": ""
+        },
+        "responseBody": {
+            "type": "bh",
+            "value": ""
+        },
+        "httpcode": {
+            "type": "num",
+            "value": ""
+        },
+        "responseType": "next",
+        "responseMapping": "",
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "sd_KvM72s1Vj3xNE4Et",
+        "category": "HTTP",
+        "x": 420,
+        "y": 440,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_ee0n1dMdOHGjTkw7",
+        "type": "MiddlewareStart",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "MyMidd",
+        "inputs": 0,
+        "outputs": 1,
+        "category": "HTTP",
+        "x": 125,
+        "y": 440,
+        "wires": [
+            [
+                "sd_DJocUXXGxJvT3b7U"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "list",
+        "functionName": "sd_ee0n1dMdOHGjTkw7"
+    },
+    {
+        "id": "sd_DJocUXXGxJvT3b7U",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "script": "console.log(\"Hi Mid\")",
+        "functionName": "sd_DJocUXXGxJvT3b7U",
+        "category": "Function",
+        "x": 260,
+        "y": 440,
+        "wires": [
+            [
+                "sd_KvM72s1Vj3xNE4Et"
             ]
         ],
         "__n_excludedFromValidation__": {},

@@ -47,6 +47,7 @@
                 }
             }
         },
+        "uploadFileOptions": {},
         "editableListData": {
             "responses": [],
             "params": [
@@ -110,6 +111,7 @@
             "obj": "bh.local.response",
             "send": "bh.local.response"
         },
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -136,7 +138,7 @@
         "viewType": "common",
         "nodeType": "flow",
         "name": "Get Details Script",
-        "script": "bh.local.query = `SELECT * FROM users WHERE name=\"${bh.input.params.name}\"`;\n\nbh.local.response = {\n    status: 200,\n    data: bh.local.user,\n    message: \"User Details Fetch Successfully\"\n\n}",
+        "script": "const { name } = bh.input.params\nbh.local.query = \"SELECT * FROM users WHERE name = '\" + name + \"'\";\n\n",
         "functionName": "getDetailsScript",
         "category": "Function",
         "x": 330,
@@ -158,6 +160,7 @@
         "nodeType": "flow",
         "name": "SQL Query",
         "databaseConfig": "sd_etWr60jvxRofVqty",
+        "queryType": "",
         "resultMap": {
             "type": "bh.local",
             "value": "user"
@@ -170,14 +173,15 @@
         "inputs": 1,
         "outputs": 1,
         "params": [],
+        "paramMappingObj": {},
         "dbType": "postgres",
         "functionName": "sQLQuery",
         "category": "Storage",
-        "x": 450,
+        "x": 425,
         "y": 60,
         "wires": [
             [
-                "sd_huxtzk4K1o2O0Mut"
+                "sd_8myLF8XASmjotcVc"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -333,6 +337,27 @@
         "wires": [
             [
                 "sd_jRduVospBZcROvlg"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_8myLF8XASmjotcVc",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_tfxyTHxjpf2SqyCD",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Get Details Script 1",
+        "script": "bh.local.response = {\n    status: 200,\n    data: bh.local.user,\n    message: \"User Details Fetch Successfully\"\n\n}\n",
+        "functionName": "getDetailsScript1",
+        "category": "Function",
+        "x": 505,
+        "y": 60,
+        "wires": [
+            [
+                "sd_huxtzk4K1o2O0Mut"
             ]
         ],
         "__n_excludedFromValidation__": {},

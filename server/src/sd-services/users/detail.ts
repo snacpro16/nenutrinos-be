@@ -160,13 +160,9 @@ export class detail {
 
   async getDetailsScript(bh) {
     try {
-      bh.local.query = `SELECT * FROM users WHERE name="${bh.input.params.name}"`;
+      const { name } = bh.input.params;
+      bh.local.query = "SELECT * FROM users WHERE name = '" + name + "'";
 
-      bh.local.response = {
-        status: 200,
-        data: bh.local.user,
-        message: 'User Details Fetch Successfully',
-      };
       bh = await this.sQLQuery(bh);
       //appendnew_next_getDetailsScript
       return bh;
@@ -191,18 +187,34 @@ export class detail {
       } else {
         throw new Error('Cannot find the selected config name');
       }
-      let params = [];
+      let params = undefined;
       params = params ? params : [];
       bh.local.user = await new GenericRDBMSOperations().executeSQL(
         connectionName,
         bh.local.query,
         params
       );
-      await this.httpResponse(bh);
+      bh = await this.getDetailsScript1(bh);
       //appendnew_next_sQLQuery
       return bh;
     } catch (e) {
       return await this.errorHandler(bh, e, 'sd_GmcO5SQnZnMks4q5');
+    }
+  }
+
+  async getDetailsScript1(bh) {
+    try {
+      bh.local.response = {
+        status: 200,
+        data: bh.local.user,
+        message: 'User Details Fetch Successfully',
+      };
+
+      await this.httpResponse(bh);
+      //appendnew_next_getDetailsScript1
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_8myLF8XASmjotcVc');
     }
   }
 
