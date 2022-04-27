@@ -1,0 +1,342 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "type": "tab",
+        "createdDate": "2022-04-26T07:02:13.744Z",
+        "label": "detail",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "detail",
+        "relativeParentPath": "blogController"
+    },
+    {
+        "id": "sd_52Jg4dBf2PSTXRKG",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "Get Details",
+        "path": "blogs/:id",
+        "uploadpath": "",
+        "summary": "fetch blog details",
+        "description": "call API with blog id",
+        "method": "get",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "httpOptions": {
+            "blogs/:id": {
+                "get": {
+                    "summary": "fetch blog details",
+                    "description": "call API with blog id",
+                    "consumes": [],
+                    "produces": [],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "id",
+                            "required": true
+                        }
+                    ],
+                    "responses": {}
+                }
+            }
+        },
+        "editableListData": {
+            "responses": [],
+            "params": [
+                {
+                    "key": "id",
+                    "desc": "id",
+                    "type": "path",
+                    "required": true,
+                    "rowId": "sd_WurvB2ACIRY9JShs",
+                    "valid": true
+                }
+            ],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "category": "HTTP",
+        "x": 100,
+        "y": 140,
+        "wires": [
+            [
+                "sd_2nxODheR1YKF8VI9"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "detail",
+        "functionName": "sd_52Jg4dBf2PSTXRKG"
+    },
+    {
+        "id": "sd_VRja8lhPBDSHm2j2",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "Http Response",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "blog",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.blog",
+            "send": "bh.local.blog"
+        },
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "httpResponse",
+        "category": "HTTP",
+        "x": 545,
+        "y": 140,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_2nxODheR1YKF8VI9",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Get Details Script",
+        "script": "bh.local.query = `SELECT * FROM blogs WHERE id= ${bh.input.params.id}`;\n",
+        "functionName": "getDetailsScript",
+        "category": "Function",
+        "x": 265,
+        "y": 140,
+        "wires": [
+            [
+                "sd_2sla0pheSoMwJZv4"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_2sla0pheSoMwJZv4",
+        "type": "ExecuteSql",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "SQL Query",
+        "databaseConfig": "sd_etWr60jvxRofVqty",
+        "resultMap": {
+            "type": "bh.local",
+            "value": "blog"
+        },
+        "multipleQuery": "",
+        "singleQuery": {
+            "type": "bh.local",
+            "value": "query"
+        },
+        "inputs": 1,
+        "outputs": 1,
+        "params": [],
+        "dbType": "postgres",
+        "functionName": "sQLQuery",
+        "category": "Storage",
+        "x": 385,
+        "y": 140,
+        "wires": [
+            [
+                "sd_VRja8lhPBDSHm2j2"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_TQY4qgJX45tZkPLQ",
+        "type": "Catch",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "common",
+        "nodeType": "start",
+        "name": "Error",
+        "selectedNodes": [
+            "sd_2nxODheR1YKF8VI9"
+        ],
+        "selectCatchType": "selectednodes",
+        "masternodeList": "",
+        "ignoreList": "",
+        "functionName": "error",
+        "category": "General",
+        "x": 105,
+        "y": 300,
+        "wires": [
+            [
+                "sd_B369Ud427yZz4YAn"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "detail"
+    },
+    {
+        "id": "sd_PMTgCCjvtpcTkJYu",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Blog Error",
+        "script": "bh.local.error ={\n    code:321,\n    message:'321 Error !!!'\n}",
+        "functionName": "blogError",
+        "category": "Function",
+        "x": 385,
+        "y": 260,
+        "wires": [
+            [
+                "sd_iEdOaDOVLUOd4W0T"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_iEdOaDOVLUOd4W0T",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "HTTP error out",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "error",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 500,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 500,
+            "obj": "bh.local.error",
+            "send": "bh.local.error"
+        },
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "hTTPErrorOut",
+        "category": "HTTP",
+        "x": 565,
+        "y": 300,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_B369Ud427yZz4YAn",
+        "type": "Switch",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "property": "error.message",
+        "propertyType": "bh",
+        "propertyGv": "bh.error.message",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str",
+                "gv": "\"1\""
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str",
+                "gv": "\"2\""
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "functionName": "sd_B369Ud427yZz4YAn",
+        "category": "Function",
+        "x": 225,
+        "y": 300,
+        "wires": [
+            [
+                "sd_PMTgCCjvtpcTkJYu"
+            ],
+            [
+                "sd_wJ6ABoamQJCzPydY"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_wJ6ABoamQJCzPydY",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_OfZmpL8iUtGIvz5z",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Blog Error 2",
+        "script": "bh.local.error ={\n    code:123,\n    message:'123 Error !!!'\n}",
+        "functionName": "blogError2",
+        "category": "Function",
+        "x": 385,
+        "y": 360,
+        "wires": [
+            [
+                "sd_iEdOaDOVLUOd4W0T"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    }
+]

@@ -1,0 +1,187 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_dh4hl3GTKRg9ld0x",
+        "type": "tab",
+        "createdDate": "2022-04-26T17:24:24.199Z",
+        "label": "remove",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "remove",
+        "relativeParentPath": "blogController"
+    },
+    {
+        "id": "sd_Bk8qMNZXNObKrIbl",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_dh4hl3GTKRg9ld0x",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "Delete blog",
+        "path": "blogs/:id",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "delete",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "httpOptions": {
+            "blogs/:id": {
+                "delete": {
+                    "summary": "",
+                    "description": "",
+                    "consumes": [],
+                    "produces": [],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "id",
+                            "description": "id",
+                            "required": true
+                        }
+                    ],
+                    "responses": {}
+                }
+            }
+        },
+        "editableListData": {
+            "responses": [],
+            "params": [
+                {
+                    "key": "id",
+                    "desc": "id",
+                    "type": "path",
+                    "required": true,
+                    "rowId": "sd_3LZzEifRtYd1Cdt7",
+                    "valid": true
+                }
+            ],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "category": "HTTP",
+        "x": 165,
+        "y": 140,
+        "wires": [
+            [
+                "sd_zT3PaGA4Ga2Ck9w9"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "remove",
+        "functionName": "sd_Bk8qMNZXNObKrIbl"
+    },
+    {
+        "id": "sd_E8BwDpcCvTj53AuR",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_dh4hl3GTKRg9ld0x",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "Http response",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "httpResponse",
+        "category": "HTTP",
+        "x": 545,
+        "y": 140,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_Ouzh4r0AkmCQxs0O",
+        "type": "ExecuteSql",
+        "z": "SSD_SERVICE_ID_sd_dh4hl3GTKRg9ld0x",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "SQL Query",
+        "databaseConfig": "sd_etWr60jvxRofVqty",
+        "resultMap": {
+            "type": "bh.local",
+            "value": "result"
+        },
+        "multipleQuery": "",
+        "singleQuery": {
+            "type": "bh.local",
+            "value": "query"
+        },
+        "inputs": 1,
+        "outputs": 1,
+        "params": [],
+        "dbType": "postgres",
+        "functionName": "sQLQuery",
+        "category": "Storage",
+        "x": 405,
+        "y": 140,
+        "wires": [
+            [
+                "sd_E8BwDpcCvTj53AuR"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_zT3PaGA4Ga2Ck9w9",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_dh4hl3GTKRg9ld0x",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Blog Delete script",
+        "script": "bh.local.query = `DELETE FROM blogs where id=${bh.input.params.id}`\n\nbh.local.response = {\n    message: 'Blog Deleted Successfully',\n}",
+        "functionName": "blogDeleteScript",
+        "category": "Function",
+        "x": 285,
+        "y": 140,
+        "wires": [
+            [
+                "sd_Ouzh4r0AkmCQxs0O"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    }
+]

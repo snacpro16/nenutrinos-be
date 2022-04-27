@@ -1,0 +1,361 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "type": "tab",
+        "createdDate": "2022-04-26T12:17:13.526Z",
+        "label": "save",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "save",
+        "relativeParentPath": "blogController"
+    },
+    {
+        "id": "sd_a5IIugY61R6bbbkq",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "Add Blog",
+        "path": "blogs",
+        "uploadpath": "",
+        "summary": "Add Blogs",
+        "description": "Call method to add blog",
+        "method": "post",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "httpOptions": {
+            "blogs": {
+                "post": {
+                    "summary": "Add Blogs",
+                    "description": "Call method to add blog",
+                    "consumes": [
+                        "application/json"
+                    ],
+                    "produces": [
+                        "application/json"
+                    ],
+                    "parameters": [
+                        {
+                            "in": "body",
+                            "name": "blog",
+                            "description": "blog object",
+                            "required": false
+                        }
+                    ],
+                    "responses": {}
+                }
+            }
+        },
+        "uploadFileOptions": {},
+        "editableListData": {
+            "responses": [],
+            "params": [
+                {
+                    "key": "blog",
+                    "desc": "blog object",
+                    "type": "body",
+                    "required": false,
+                    "rowId": "sd_H9FROmwb7xcJmfo7",
+                    "valid": true
+                }
+            ],
+            "produces": [
+                {
+                    "key": "application/json",
+                    "rowId": "sd_hSAVlYRw6Tn48zQi",
+                    "valid": true
+                }
+            ],
+            "consumes": [
+                {
+                    "key": "application/json",
+                    "rowId": "sd_wKIDbvfQWioDPFpF",
+                    "valid": true
+                }
+            ]
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "category": "HTTP",
+        "x": 125,
+        "y": 140,
+        "wires": [
+            [
+                "sd_1Hg4gvOOV7QPW1L1"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "save",
+        "functionName": "sd_a5IIugY61R6bbbkq"
+    },
+    {
+        "id": "sd_Ck8UDq8QQo5vhB1l",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "Http response",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "blog",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 201,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 201,
+            "obj": "bh.local.blog",
+            "send": "bh.local.blog"
+        },
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "httpResponse",
+        "category": "HTTP",
+        "x": 500,
+        "y": 140,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_1Hg4gvOOV7QPW1L1",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Add Blog Script",
+        "script": "console.log(\"body\", bh.input.body);\nconst id = Math.random() * (99999 - 1000) + 1000;\nbh.local.query = `INSERT INTO blogs (id, title, description,image)  VALUES (${id},'${bh.input.body.title}','${bh.input.body.description}','${bh.input.body.image}' );`;\n\nbh.local.blog = {\n    message: 'Blog Added Successfully',\n    data: {\n        ...bh.input.body,\n        id\n    }\n}",
+        "functionName": "addBlogScript",
+        "category": "Function",
+        "x": 280,
+        "y": 140,
+        "wires": [
+            [
+                "sd_IIeSom1YupqbKxBd"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_IIeSom1YupqbKxBd",
+        "type": "ExecuteSql",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "",
+        "databaseConfig": "sd_etWr60jvxRofVqty",
+        "queryType": "",
+        "resultMap": {
+            "type": "bh.local",
+            "value": "result"
+        },
+        "multipleQuery": "",
+        "singleQuery": {
+            "type": "bh.local",
+            "value": "query"
+        },
+        "inputs": 1,
+        "outputs": 1,
+        "params": [],
+        "paramMappingObj": {},
+        "dbType": "postgres",
+        "functionName": "sd_IIeSom1YupqbKxBd",
+        "category": "Storage",
+        "x": 385,
+        "y": 140,
+        "wires": [
+            [
+                "sd_Ck8UDq8QQo5vhB1l"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_XUUjPFgopU73wMTE",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Blog Error",
+        "script": "bh.local.error ={\n    code:321,\n    message:'321 Error !!!'\n}",
+        "functionName": "blogError",
+        "category": "Function",
+        "x": 385,
+        "y": 220,
+        "wires": [
+            [
+                "sd_rfOQcTiO84DeOOq8"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_rfOQcTiO84DeOOq8",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "HTTP error out",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "error",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 500,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 500,
+            "obj": "bh.local.error",
+            "send": "bh.local.error"
+        },
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "hTTPErrorOut",
+        "category": "HTTP",
+        "x": 525,
+        "y": 260,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_77dyugEHkHr4Uwd4",
+        "type": "Switch",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "",
+        "property": "error.message",
+        "propertyType": "bh",
+        "propertyGv": "bh.error.message",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "1",
+                "vt": "str",
+                "gv": "\"1\""
+            },
+            {
+                "t": "eq",
+                "v": "2",
+                "vt": "str",
+                "gv": "\"2\""
+            }
+        ],
+        "checkall": "false",
+        "repair": false,
+        "outputs": 2,
+        "functionName": "sd_77dyugEHkHr4Uwd4",
+        "category": "Function",
+        "x": 285,
+        "y": 260,
+        "wires": [
+            [
+                "sd_XUUjPFgopU73wMTE"
+            ],
+            [
+                "sd_6vQ21mnvXt4i2JzE"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_6vQ21mnvXt4i2JzE",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "Blog Error 2",
+        "script": "bh.local.error ={\n    code:123,\n    message:'123 Error !!!'\n}",
+        "functionName": "blogError2",
+        "category": "Function",
+        "x": 385,
+        "y": 320,
+        "wires": [
+            [
+                "sd_rfOQcTiO84DeOOq8"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_UAmrph2W3Dlyewnk",
+        "type": "Catch",
+        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "viewType": "common",
+        "nodeType": "start",
+        "name": "Error",
+        "selectedNodes": [
+            "sd_1Hg4gvOOV7QPW1L1"
+        ],
+        "selectCatchType": "selectednodes",
+        "masternodeList": "",
+        "ignoreList": "",
+        "functionName": "error",
+        "category": "General",
+        "x": 125,
+        "y": 260,
+        "wires": [
+            [
+                "sd_77dyugEHkHr4Uwd4"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "save"
+    }
+]
