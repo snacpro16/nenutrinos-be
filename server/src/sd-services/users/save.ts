@@ -15,7 +15,7 @@ import * as settings from '../../config/config'; //_splitter_
 import log from '../../utils/Logger'; //_splitter_
 import { GenericRDBMSOperations } from '../../utils/ndefault-sql/ExecuteSql/GenericRDBMSOperations'; //_splitter_
 //append_imports_end
-export class list {
+export class save {
   private sdService = new SDBaseService();
   private app;
   private serviceBasePath: string;
@@ -31,7 +31,7 @@ export class list {
     swaggerDocument,
     globalTimers
   ) {
-    this.serviceName = 'list';
+    this.serviceName = 'save';
     this.app = app;
     this.serviceBasePath = this.app.settings.base;
     this.generatedMiddlewares = generatedeMiddlewares;
@@ -48,7 +48,7 @@ export class list {
     globalTimers?
   ) {
     if (!instance) {
-      instance = new list(
+      instance = new save(
         app,
         generatedeMiddlewares,
         routeCall,
@@ -83,43 +83,57 @@ export class list {
 
   async mountTimers() {
     try {
-      //appendnew_flow_list_TimerStart
+      //appendnew_flow_save_TimerStart
     } catch (e) {
       throw e;
     }
   }
 
   private mountAllMiddlewares() {
-    log.debug('mounting all middlewares for service :: list');
+    log.debug('mounting all middlewares for service :: save');
 
-    //appendnew_flow_list_MiddlewareStart
+    //appendnew_flow_save_MiddlewareStart
   }
   private mountAllPaths() {
-    log.debug('mounting all paths for service :: list');
+    log.debug('mounting all paths for service :: save');
 
-    if (!this.swaggerDocument['paths']['/blogs']) {
-      this.swaggerDocument['paths']['/blogs'] = {
-        get: {
-          summary: 'Fetching blogs list',
-          description: 'for fetching details call the API with GET  method',
-          consumes: [],
-          produces: [],
-          parameters: [],
+    if (!this.swaggerDocument['paths']['/users']) {
+      this.swaggerDocument['paths']['/users'] = {
+        post: {
+          summary: 'Add Blogs',
+          description: 'Call method to add blog',
+          consumes: ['application/json'],
+          produces: ['application/json'],
+          parameters: [
+            {
+              in: 'body',
+              name: 'user',
+              description: 'user object',
+              required: false,
+            },
+          ],
           responses: {},
         },
       };
     } else {
-      this.swaggerDocument['paths']['/blogs']['get'] = {
-        summary: 'Fetching blogs list',
-        description: 'for fetching details call the API with GET  method',
-        consumes: [],
-        produces: [],
-        parameters: [],
+      this.swaggerDocument['paths']['/users']['post'] = {
+        summary: 'Add Blogs',
+        description: 'Call method to add blog',
+        consumes: ['application/json'],
+        produces: ['application/json'],
+        parameters: [
+          {
+            in: 'body',
+            name: 'user',
+            description: 'user object',
+            required: false,
+          },
+        ],
         responses: {},
       };
     }
-    this.app['get'](
-      `${this.serviceBasePath}/blogs`,
+    this.app['post'](
+      `${this.serviceBasePath}/users`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
         null,
@@ -136,10 +150,10 @@ export class list {
             res,
             next
           );
-          bh = await this.blogListScript(bh);
-          //appendnew_next_sd_Oy9kBCdOVXmHKJ1b
+          bh = await this.addUserScript(bh);
+          //appendnew_next_sd_TbyxlYQhmhiDg324
         } catch (e) {
-          return await this.errorHandler(bh, e, 'sd_Oy9kBCdOVXmHKJ1b');
+          return await this.errorHandler(bh, e, 'sd_TbyxlYQhmhiDg324');
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
@@ -148,26 +162,43 @@ export class list {
         this.generatedMiddlewares
       )
     );
-    //appendnew_flow_list_HttpIn
+    //appendnew_flow_save_HttpIn
   }
-  //   service flows_list
+  //   service flows_save
 
-  //appendnew_flow_list_start
+  //appendnew_flow_save_start
 
-  async blogListScript(bh) {
+  async addUserScript(bh) {
     try {
-      bh.local.query = 'SELECT * FROM blogs';
-      // bh.local.query = 'Delete FROM blogs where id=0';
-      // throw  new Error(2)
-      bh = await this.sQLQuery(bh);
-      //appendnew_next_blogListScript
+      console.log('body', bh.input.body);
+
+      const { name, email, phonenumber } = bh.input.body;
+
+      if (!name) {
+        throw new Error('Title is required!');
+      } else if (!email) {
+        throw new Error('Email is required!');
+      } else if (!phonenumber) {
+        throw new Error('Phone Number is required!');
+      }
+
+      bh.local.query = `INSERT INTO users ( name, email,phonenumber)  VALUES ('${name}','${email}','${phonenumber}' );`;
+
+      bh.local.response = {
+        message: 'User Added Successfully',
+        data: {
+          ...bh.input.body,
+        },
+      };
+      bh = await this.sd_wfO2Si7ASgYGrI4o(bh);
+      //appendnew_next_addUserScript
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_Oz8ikA0XSnKaaaME');
+      return await this.errorHandler(bh, e, 'sd_85cShlv0dNx0pRqa');
     }
   }
 
-  async sQLQuery(bh) {
+  async sd_wfO2Si7ASgYGrI4o(bh) {
     try {
       let configObj = this.sdService.getConfigObj(
         'db-config',
@@ -185,92 +216,51 @@ export class list {
       }
       let params = undefined;
       params = params ? params : [];
-      bh.local.blogs = await new GenericRDBMSOperations().executeSQL(
+      bh.local.result = await new GenericRDBMSOperations().executeSQL(
         connectionName,
         bh.local.query,
         params
       );
-      await this.hTTPResponse(bh);
-      //appendnew_next_sQLQuery
+      await this.httpResponse(bh);
+      //appendnew_next_sd_wfO2Si7ASgYGrI4o
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_DHCkLhd7VKpj1QvD');
+      return await this.errorHandler(bh, e, 'sd_wfO2Si7ASgYGrI4o');
     }
   }
 
-  async hTTPResponse(bh) {
+  async httpResponse(bh) {
     try {
-      bh.web.res.status(200).send(bh.local.blogs);
+      bh.web.res.status(201).send(bh.local.response);
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_eagPH1D0HKqzBTks');
+      return await this.errorHandler(bh, e, 'sd_eT34E5Abpne2U7z0');
     }
   }
 
-  async sd_JHDhGbPtCotcq5j5(bh) {
-    try {
-      if (
-        this.sdService.operators['eq'](
-          bh.error.message,
-          '1',
-          undefined,
-          undefined
-        )
-      ) {
-        bh = await this.blogError(bh);
-      } else if (
-        this.sdService.operators['eq'](
-          bh.error.message,
-          '2',
-          undefined,
-          undefined
-        )
-      ) {
-        bh = await this.blogError2F(bh);
-      }
-
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_JHDhGbPtCotcq5j5');
-    }
-  }
-
-  async blogError(bh) {
+  async userError2(bh) {
     try {
       bh.local.error = {
-        code: bh.error.message,
-        message: 'Opps.. somthing went wrong !!!!',
+        status: 406,
+        message: bh?.error?.message || 'Opps... Somthing Went Wrong!',
       };
+
       await this.hTTPErrorOut(bh);
-      //appendnew_next_blogError
+      //appendnew_next_userError2
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_ZfQIjn2WO5nYRTJS');
+      return await this.errorHandler(bh, e, 'sd_5mfgThqxlky76oU8');
     }
   }
 
   async hTTPErrorOut(bh) {
     try {
-      bh.web.res.status(500).send(bh.local.error);
+      bh.web.res.status(bh.local.error.status).send(bh.local.error);
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_GR8mm66e3eK7NX88');
-    }
-  }
-
-  async blogError2F(bh) {
-    try {
-      bh.local.error = {
-        code: bh.error.message,
-        message: 'Opps.. somthing went wrong !!!!',
-      };
-      await this.hTTPErrorOut(bh);
-      //appendnew_next_blogError2F
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_vhMiZz4Pwv3L6N33');
+      return await this.errorHandler(bh, e, 'sd_upEsKiocdkcLlqmp');
     }
   }
 
@@ -296,13 +286,13 @@ export class list {
     }
   }
   async error(bh) {
-    const nodes = ['sd_Oz8ikA0XSnKaaaME'];
+    const nodes = ['sd_1Hg4gvOOV7QPW1L1'];
     if (nodes.includes(bh.errorSource)) {
-      bh = await this.sd_JHDhGbPtCotcq5j5(bh);
+      bh = await this.userError2(bh);
       //appendnew_next_error
       return true;
     }
     return false;
   }
-  //appendnew_flow_list_Catch
+  //appendnew_flow_save_Catch
 }

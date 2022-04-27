@@ -1,36 +1,36 @@
 [
     {
-        "id": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "id": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "type": "tab",
-        "createdDate": "2022-04-26T12:17:13.526Z",
-        "label": "save",
+        "createdDate": "2022-04-27T08:00:43.469Z",
+        "label": "update",
         "disabled": false,
         "info": "",
         "functionSeq": 0,
         "generateNext": true,
-        "serviceName": "save",
-        "relativeParentPath": "blogController"
+        "serviceName": "update",
+        "relativeParentPath": "users"
     },
     {
-        "id": "sd_a5IIugY61R6bbbkq",
+        "id": "sd_D4nuBuWxAcO9uVcy",
         "type": "HttpIn",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "server",
         "nodeType": "start",
-        "name": "Add Blog",
-        "path": "blogs",
+        "name": "update User",
+        "path": "users",
         "uploadpath": "",
         "summary": "Add Blogs",
         "description": "Call method to add blog",
-        "method": "post",
+        "method": "put",
         "sequenceId": "",
         "consumes": "",
         "produces": "",
         "filetype": "path",
         "acceptFileUpload": false,
         "httpOptions": {
-            "blogs": {
-                "post": {
+            "users": {
+                "put": {
                     "summary": "Add Blogs",
                     "description": "Call method to add blog",
                     "consumes": [
@@ -42,8 +42,8 @@
                     "parameters": [
                         {
                             "in": "body",
-                            "name": "blog",
-                            "description": "blog object",
+                            "name": "user",
+                            "description": "user object",
                             "required": false
                         }
                     ],
@@ -51,13 +51,12 @@
                 }
             }
         },
-        "uploadFileOptions": {},
         "editableListData": {
             "responses": [],
             "params": [
                 {
-                    "key": "blog",
-                    "desc": "blog object",
+                    "key": "user",
+                    "desc": "user object",
                     "type": "body",
                     "required": false,
                     "rowId": "sd_H9FROmwb7xcJmfo7",
@@ -83,10 +82,10 @@
         "outputs": 1,
         "category": "HTTP",
         "x": 125,
-        "y": 140,
+        "y": 100,
         "wires": [
             [
-                "sd_1Hg4gvOOV7QPW1L1"
+                "sd_4cezdtcpdU3qn9jO"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -100,20 +99,20 @@
         },
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "save",
-        "functionName": "sd_a5IIugY61R6bbbkq"
+        "serviceName": "update",
+        "functionName": "sd_D4nuBuWxAcO9uVcy"
     },
     {
-        "id": "sd_Ck8UDq8QQo5vhB1l",
+        "id": "sd_gN72Tjbz0w4hMLIM",
         "type": "HttpOut",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "server",
         "nodeType": "flow",
         "name": "Http response",
         "headers": {},
         "responseBody": {
             "type": "bh.local",
-            "value": "blog",
+            "value": "response",
             "ssd_typedInputField": true
         },
         "httpcode": {
@@ -124,9 +123,10 @@
         "responseType": "obj",
         "responseMapping": {
             "status": 201,
-            "obj": "bh.local.blog",
-            "send": "bh.local.blog"
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
         },
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -139,28 +139,28 @@
         },
         "functionName": "httpResponse",
         "category": "HTTP",
-        "x": 500,
-        "y": 140,
+        "x": 480,
+        "y": 100,
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
         "generated": true
     },
     {
-        "id": "sd_1Hg4gvOOV7QPW1L1",
+        "id": "sd_4cezdtcpdU3qn9jO",
         "type": "Script",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "common",
         "nodeType": "flow",
-        "name": "Add Blog Script",
-        "script": "console.log(\"body\", bh.input.body);\nconst id = Math.random() * (99999 - 1000) + 1000;\n\nconst { title, description, image } = bh.input.body;\n\nif (!title) {\n    throw new Error('Title is required!')\n\n} else if (!description) {\n    throw new Error('Description is required!')\n\n} else if (!image) {\n    throw new Error('Image is required!')\n\n}\n\nbh.local.query = `INSERT INTO blogs (id, title, description,image)  VALUES (${id},'${title}','${description}','${image}' );`;\n\nbh.local.blog = {\n    message: 'Blog Added Successfully',\n    data: {\n        ...bh.input.body,\n        id\n    }\n}",
-        "functionName": "addBlogScript",
+        "name": "Add User Script",
+        "script": "console.log(\"body\", bh.input.body);\n\nconst { name, email, phonenumber } = bh.input.body;\n\nif (!name) {\n    throw new Error('Title is required!')\n\n} else if (!email) {\n    throw new Error('Email is required!')\n\n} else if (!phonenumber) {\n    throw new Error('Phone Number is required!')\n\n}\n\nbh.local.query = `INSERT INTO users ( name, email,phonenumber)  VALUES ('${name}','${email}','${phonenumber}' );`;\n\nbh.local.response = {\n    message: 'User Added Successfully',\n    data: {\n        ...bh.input.body    }\n}",
+        "functionName": "addUserScript",
         "category": "Function",
-        "x": 280,
-        "y": 140,
+        "x": 260,
+        "y": 100,
         "wires": [
             [
-                "sd_IIeSom1YupqbKxBd"
+                "sd_zQnD81u1UVgzKMlt"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -168,9 +168,9 @@
         "generated": true
     },
     {
-        "id": "sd_IIeSom1YupqbKxBd",
+        "id": "sd_zQnD81u1UVgzKMlt",
         "type": "ExecuteSql",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "server",
         "nodeType": "flow",
         "name": "",
@@ -190,13 +190,13 @@
         "params": [],
         "paramMappingObj": {},
         "dbType": "postgres",
-        "functionName": "sd_IIeSom1YupqbKxBd",
+        "functionName": "sd_zQnD81u1UVgzKMlt",
         "category": "Storage",
-        "x": 385,
-        "y": 140,
+        "x": 365,
+        "y": 100,
         "wires": [
             [
-                "sd_Ck8UDq8QQo5vhB1l"
+                "sd_gN72Tjbz0w4hMLIM"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -204,9 +204,9 @@
         "generated": true
     },
     {
-        "id": "sd_rfOQcTiO84DeOOq8",
+        "id": "sd_OZAIF4Xqh4VgqnU7",
         "type": "HttpOut",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "server",
         "nodeType": "flow",
         "name": "HTTP error out",
@@ -227,6 +227,7 @@
             "obj": "bh.local.error",
             "send": "bh.local.error"
         },
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -239,28 +240,28 @@
         },
         "functionName": "hTTPErrorOut",
         "category": "HTTP",
-        "x": 625,
-        "y": 280,
+        "x": 605,
+        "y": 240,
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
         "generated": true
     },
     {
-        "id": "sd_6vQ21mnvXt4i2JzE",
+        "id": "sd_ZW7PAKeUpJlxRvHB",
         "type": "Script",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "common",
         "nodeType": "flow",
-        "name": "Blog Error 2",
+        "name": "User Error 2",
         "script": "bh.local.error = {\n    status: 406,\n    message: bh?.error?.message || \"Opps... Somthing Went Wrong!\"\n}\n",
-        "functionName": "blogError2",
+        "functionName": "userError2",
         "category": "Function",
-        "x": 445,
-        "y": 280,
+        "x": 425,
+        "y": 240,
         "wires": [
             [
-                "sd_rfOQcTiO84DeOOq8"
+                "sd_OZAIF4Xqh4VgqnU7"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -268,9 +269,9 @@
         "generated": true
     },
     {
-        "id": "sd_UAmrph2W3Dlyewnk",
+        "id": "sd_PBPySLfoTwHK07jY",
         "type": "Catch",
-        "z": "SSD_SERVICE_ID_sd_5M70T46oKVTplT69",
+        "z": "SSD_SERVICE_ID_sd_czRJxXjXDJmaE1xY",
         "viewType": "common",
         "nodeType": "start",
         "name": "Error",
@@ -282,15 +283,15 @@
         "ignoreList": "",
         "functionName": "error",
         "category": "General",
-        "x": 245,
-        "y": 280,
+        "x": 225,
+        "y": 240,
         "wires": [
             [
-                "sd_6vQ21mnvXt4i2JzE"
+                "sd_ZW7PAKeUpJlxRvHB"
             ]
         ],
         "__n_excludedFromValidation__": {},
         "generateNext": true,
-        "serviceName": "save"
+        "serviceName": "update"
     }
 ]

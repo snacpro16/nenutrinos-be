@@ -97,8 +97,8 @@ export class list {
   private mountAllPaths() {
     log.debug('mounting all paths for service :: list');
 
-    if (!this.swaggerDocument['paths']['/blogs']) {
-      this.swaggerDocument['paths']['/blogs'] = {
+    if (!this.swaggerDocument['paths']['/users']) {
+      this.swaggerDocument['paths']['/users'] = {
         get: {
           summary: 'Fetching blogs list',
           description: 'for fetching details call the API with GET  method',
@@ -109,7 +109,7 @@ export class list {
         },
       };
     } else {
-      this.swaggerDocument['paths']['/blogs']['get'] = {
+      this.swaggerDocument['paths']['/users']['get'] = {
         summary: 'Fetching blogs list',
         description: 'for fetching details call the API with GET  method',
         consumes: [],
@@ -119,7 +119,7 @@ export class list {
       };
     }
     this.app['get'](
-      `${this.serviceBasePath}/blogs`,
+      `${this.serviceBasePath}/users`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
         null,
@@ -136,10 +136,10 @@ export class list {
             res,
             next
           );
-          bh = await this.blogListScript(bh);
-          //appendnew_next_sd_Oy9kBCdOVXmHKJ1b
+          bh = await this.userListScript(bh);
+          //appendnew_next_sd_VNl08xiTsdTKJfVx
         } catch (e) {
-          return await this.errorHandler(bh, e, 'sd_Oy9kBCdOVXmHKJ1b');
+          return await this.errorHandler(bh, e, 'sd_VNl08xiTsdTKJfVx');
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
@@ -154,16 +154,20 @@ export class list {
 
   //appendnew_flow_list_start
 
-  async blogListScript(bh) {
+  async userListScript(bh) {
     try {
-      bh.local.query = 'SELECT * FROM blogs';
-      // bh.local.query = 'Delete FROM blogs where id=0';
-      // throw  new Error(2)
+      bh.local.query = 'SELECT * FROM users';
+
+      bh.local.response = {
+        status: 200,
+        data: bh.local.users,
+        message: 'Users Fetch Successfully',
+      };
       bh = await this.sQLQuery(bh);
-      //appendnew_next_blogListScript
+      //appendnew_next_userListScript
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_Oz8ikA0XSnKaaaME');
+      return await this.errorHandler(bh, e, 'sd_QNef0YehNjB0gHVb');
     }
   }
 
@@ -183,32 +187,47 @@ export class list {
       } else {
         throw new Error('Cannot find the selected config name');
       }
-      let params = undefined;
+      let params = [];
       params = params ? params : [];
-      bh.local.blogs = await new GenericRDBMSOperations().executeSQL(
+      bh.local.users = await new GenericRDBMSOperations().executeSQL(
         connectionName,
         bh.local.query,
         params
       );
-      await this.hTTPResponse(bh);
+      bh = await this.userListScript1(bh);
       //appendnew_next_sQLQuery
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_DHCkLhd7VKpj1QvD');
+      return await this.errorHandler(bh, e, 'sd_mmaRV8U35x5aKW66');
+    }
+  }
+
+  async userListScript1(bh) {
+    try {
+      bh.local.response = {
+        status: 200,
+        data: bh.local.users,
+        message: 'Users Fetch Successfully',
+      };
+      await this.hTTPResponse(bh);
+      //appendnew_next_userListScript1
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_7CraUnErXY7Ra0sO');
     }
   }
 
   async hTTPResponse(bh) {
     try {
-      bh.web.res.status(200).send(bh.local.blogs);
+      bh.web.res.status(200).send(bh.local.response);
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_eagPH1D0HKqzBTks');
+      return await this.errorHandler(bh, e, 'sd_RdynT6ippnfNv4iL');
     }
   }
 
-  async sd_JHDhGbPtCotcq5j5(bh) {
+  async sd_Z6xriyQHJPYT6UoI(bh) {
     try {
       if (
         this.sdService.operators['eq'](
@@ -218,7 +237,7 @@ export class list {
           undefined
         )
       ) {
-        bh = await this.blogError(bh);
+        bh = await this.userError(bh);
       } else if (
         this.sdService.operators['eq'](
           bh.error.message,
@@ -232,21 +251,21 @@ export class list {
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_JHDhGbPtCotcq5j5');
+      return await this.errorHandler(bh, e, 'sd_Z6xriyQHJPYT6UoI');
     }
   }
 
-  async blogError(bh) {
+  async userError(bh) {
     try {
       bh.local.error = {
         code: bh.error.message,
         message: 'Opps.. somthing went wrong !!!!',
       };
       await this.hTTPErrorOut(bh);
-      //appendnew_next_blogError
+      //appendnew_next_userError
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_ZfQIjn2WO5nYRTJS');
+      return await this.errorHandler(bh, e, 'sd_x1KZTohc8WyN81ws');
     }
   }
 
@@ -256,7 +275,7 @@ export class list {
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_GR8mm66e3eK7NX88');
+      return await this.errorHandler(bh, e, 'sd_VTiZt14wLWMHHiiD');
     }
   }
 
@@ -270,7 +289,7 @@ export class list {
       //appendnew_next_blogError2F
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_vhMiZz4Pwv3L6N33');
+      return await this.errorHandler(bh, e, 'sd_eS5WAIqLb0aYA7MM');
     }
   }
 
@@ -298,7 +317,7 @@ export class list {
   async error(bh) {
     const nodes = ['sd_Oz8ikA0XSnKaaaME'];
     if (nodes.includes(bh.errorSource)) {
-      bh = await this.sd_JHDhGbPtCotcq5j5(bh);
+      bh = await this.sd_Z6xriyQHJPYT6UoI(bh);
       //appendnew_next_error
       return true;
     }

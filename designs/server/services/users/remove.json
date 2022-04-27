@@ -1,0 +1,190 @@
+[
+    {
+        "id": "SSD_SERVICE_ID_sd_hT5CY5Clizv40VAy",
+        "type": "tab",
+        "createdDate": "2022-04-27T07:42:11.960Z",
+        "label": "remove",
+        "disabled": false,
+        "info": "",
+        "functionSeq": 0,
+        "generateNext": true,
+        "serviceName": "remove",
+        "relativeParentPath": "users"
+    },
+    {
+        "id": "sd_LwJbFbGZcSkPzdoj",
+        "type": "HttpIn",
+        "z": "SSD_SERVICE_ID_sd_hT5CY5Clizv40VAy",
+        "viewType": "server",
+        "nodeType": "start",
+        "name": "Delete user",
+        "path": "users/:name",
+        "uploadpath": "",
+        "summary": "",
+        "description": "",
+        "method": "delete",
+        "sequenceId": "",
+        "consumes": "",
+        "produces": "",
+        "filetype": "path",
+        "acceptFileUpload": false,
+        "httpOptions": {
+            "users/:name": {
+                "delete": {
+                    "summary": "",
+                    "description": "",
+                    "consumes": [],
+                    "produces": [],
+                    "parameters": [
+                        {
+                            "in": "path",
+                            "name": "name",
+                            "description": "name",
+                            "required": true
+                        }
+                    ],
+                    "responses": {}
+                }
+            }
+        },
+        "editableListData": {
+            "responses": [],
+            "params": [
+                {
+                    "key": "name",
+                    "desc": "name",
+                    "type": "path",
+                    "required": true,
+                    "rowId": "sd_3LZzEifRtYd1Cdt7",
+                    "valid": true
+                }
+            ],
+            "produces": [],
+            "consumes": []
+        },
+        "inputs": 0,
+        "outputs": 1,
+        "category": "HTTP",
+        "x": 125,
+        "y": 80,
+        "wires": [
+            [
+                "sd_FWpghbQUBSzUJvor"
+            ]
+        ],
+        "__ssdTypeInputs__": {
+            "uploadpath": {
+                "type": "str",
+                "value": "",
+                "nullable": "true",
+                "nullableValue": "",
+                "constant": false
+            }
+        },
+        "__n_excludedFromValidation__": {},
+        "generateNext": true,
+        "serviceName": "remove",
+        "functionName": "sd_LwJbFbGZcSkPzdoj"
+    },
+    {
+        "id": "sd_eTstIZb2ojM5s8HS",
+        "type": "HttpOut",
+        "z": "SSD_SERVICE_ID_sd_hT5CY5Clizv40VAy",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "Http response",
+        "headers": {},
+        "responseBody": {
+            "type": "bh.local",
+            "value": "response",
+            "ssd_typedInputField": true
+        },
+        "httpcode": {
+            "type": "num",
+            "value": 200,
+            "ssd_typedInputField": true
+        },
+        "responseType": "obj",
+        "responseMapping": {
+            "status": 200,
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
+        },
+        "cookies": [],
+        "inputs": 1,
+        "outputs": 0,
+        "editableListData": {
+            "headers": []
+        },
+        "cookiesList": {},
+        "switchStates": {
+            "headers": "Map",
+            "cookies": "Map"
+        },
+        "functionName": "httpResponse",
+        "category": "HTTP",
+        "x": 502,
+        "y": 77.8125,
+        "wires": [],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_4EAUlG6bF3fOqyGl",
+        "type": "ExecuteSql",
+        "z": "SSD_SERVICE_ID_sd_hT5CY5Clizv40VAy",
+        "viewType": "server",
+        "nodeType": "flow",
+        "name": "SQL Query",
+        "databaseConfig": "sd_etWr60jvxRofVqty",
+        "queryType": "",
+        "resultMap": {
+            "type": "bh.local",
+            "value": "result"
+        },
+        "multipleQuery": "",
+        "singleQuery": {
+            "type": "bh.local",
+            "value": "query"
+        },
+        "inputs": 1,
+        "outputs": 1,
+        "params": [],
+        "paramMappingObj": {},
+        "dbType": "postgres",
+        "functionName": "sQLQuery",
+        "category": "Storage",
+        "x": 362,
+        "y": 77.8125,
+        "wires": [
+            [
+                "sd_eTstIZb2ojM5s8HS"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_FWpghbQUBSzUJvor",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_hT5CY5Clizv40VAy",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "User Delete script",
+        "script": "bh.local.query = `DELETE FROM users where name=${bh.input.params.name}`\n\nbh.local.response = {\n    status: 200,\n    message: 'User Deleted Successfully',\n}",
+        "functionName": "userDeleteScript",
+        "category": "Function",
+        "x": 242,
+        "y": 77.8125,
+        "wires": [
+            [
+                "sd_4EAUlG6bF3fOqyGl"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    }
+]

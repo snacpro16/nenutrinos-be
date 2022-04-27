@@ -172,7 +172,18 @@ export class save {
     try {
       console.log('body', bh.input.body);
       const id = Math.random() * (99999 - 1000) + 1000;
-      bh.local.query = `INSERT INTO blogs (id, title, description,image)  VALUES (${id},'${bh.input.body.title}','${bh.input.body.description}','${bh.input.body.image}' );`;
+
+      const { title, description, image } = bh.input.body;
+
+      if (!title) {
+        throw new Error('Title is required!');
+      } else if (!description) {
+        throw new Error('Description is required!');
+      } else if (!image) {
+        throw new Error('Image is required!');
+      }
+
+      bh.local.query = `INSERT INTO blogs (id, title, description,image)  VALUES (${id},'${title}','${description}','${image}' );`;
 
       bh.local.blog = {
         message: 'Blog Added Successfully',
@@ -230,69 +241,28 @@ export class save {
     }
   }
 
-  async sd_77dyugEHkHr4Uwd4(bh) {
-    try {
-      if (
-        this.sdService.operators['eq'](
-          bh.error.message,
-          '1',
-          undefined,
-          undefined
-        )
-      ) {
-        bh = await this.blogError(bh);
-      } else if (
-        this.sdService.operators['eq'](
-          bh.error.message,
-          '2',
-          undefined,
-          undefined
-        )
-      ) {
-        bh = await this.blogError2(bh);
-      }
-
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_77dyugEHkHr4Uwd4');
-    }
-  }
-
-  async blogError(bh) {
-    try {
-      bh.local.error = {
-        code: 321,
-        message: '321 Error !!!',
-      };
-      await this.hTTPErrorOut(bh);
-      //appendnew_next_blogError
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_XUUjPFgopU73wMTE');
-    }
-  }
-
-  async hTTPErrorOut(bh) {
-    try {
-      bh.web.res.status(500).send(bh.local.error);
-
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_rfOQcTiO84DeOOq8');
-    }
-  }
-
   async blogError2(bh) {
     try {
       bh.local.error = {
-        code: 123,
-        message: '123 Error !!!',
+        status: 406,
+        message: bh?.error?.message || 'Opps... Somthing Went Wrong!',
       };
+
       await this.hTTPErrorOut(bh);
       //appendnew_next_blogError2
       return bh;
     } catch (e) {
       return await this.errorHandler(bh, e, 'sd_6vQ21mnvXt4i2JzE');
+    }
+  }
+
+  async hTTPErrorOut(bh) {
+    try {
+      bh.web.res.status(bh.local.error.status).send(bh.local.error);
+
+      return bh;
+    } catch (e) {
+      return await this.errorHandler(bh, e, 'sd_rfOQcTiO84DeOOq8');
     }
   }
 
@@ -320,7 +290,7 @@ export class save {
   async error(bh) {
     const nodes = ['sd_1Hg4gvOOV7QPW1L1'];
     if (nodes.includes(bh.errorSource)) {
-      bh = await this.sd_77dyugEHkHr4Uwd4(bh);
+      bh = await this.blogError2(bh);
       //appendnew_next_error
       return true;
     }

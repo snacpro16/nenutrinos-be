@@ -15,7 +15,7 @@ import * as settings from '../../config/config'; //_splitter_
 import log from '../../utils/Logger'; //_splitter_
 import { GenericRDBMSOperations } from '../../utils/ndefault-sql/ExecuteSql/GenericRDBMSOperations'; //_splitter_
 //append_imports_end
-export class list {
+export class remove {
   private sdService = new SDBaseService();
   private app;
   private serviceBasePath: string;
@@ -31,7 +31,7 @@ export class list {
     swaggerDocument,
     globalTimers
   ) {
-    this.serviceName = 'list';
+    this.serviceName = 'remove';
     this.app = app;
     this.serviceBasePath = this.app.settings.base;
     this.generatedMiddlewares = generatedeMiddlewares;
@@ -48,7 +48,7 @@ export class list {
     globalTimers?
   ) {
     if (!instance) {
-      instance = new list(
+      instance = new remove(
         app,
         generatedeMiddlewares,
         routeCall,
@@ -83,43 +83,47 @@ export class list {
 
   async mountTimers() {
     try {
-      //appendnew_flow_list_TimerStart
+      //appendnew_flow_remove_TimerStart
     } catch (e) {
       throw e;
     }
   }
 
   private mountAllMiddlewares() {
-    log.debug('mounting all middlewares for service :: list');
+    log.debug('mounting all middlewares for service :: remove');
 
-    //appendnew_flow_list_MiddlewareStart
+    //appendnew_flow_remove_MiddlewareStart
   }
   private mountAllPaths() {
-    log.debug('mounting all paths for service :: list');
+    log.debug('mounting all paths for service :: remove');
 
-    if (!this.swaggerDocument['paths']['/blogs']) {
-      this.swaggerDocument['paths']['/blogs'] = {
-        get: {
-          summary: 'Fetching blogs list',
-          description: 'for fetching details call the API with GET  method',
+    if (!this.swaggerDocument['paths']['/users/{name}']) {
+      this.swaggerDocument['paths']['/users/{name}'] = {
+        delete: {
+          summary: '',
+          description: '',
           consumes: [],
           produces: [],
-          parameters: [],
+          parameters: [
+            { in: 'path', name: 'name', description: 'name', required: true },
+          ],
           responses: {},
         },
       };
     } else {
-      this.swaggerDocument['paths']['/blogs']['get'] = {
-        summary: 'Fetching blogs list',
-        description: 'for fetching details call the API with GET  method',
+      this.swaggerDocument['paths']['/users/{name}']['delete'] = {
+        summary: '',
+        description: '',
         consumes: [],
         produces: [],
-        parameters: [],
+        parameters: [
+          { in: 'path', name: 'name', description: 'name', required: true },
+        ],
         responses: {},
       };
     }
-    this.app['get'](
-      `${this.serviceBasePath}/blogs`,
+    this.app['delete'](
+      `${this.serviceBasePath}/users/:name`,
       cookieParser(),
       this.sdService.getMiddlesWaresBySequenceId(
         null,
@@ -136,10 +140,10 @@ export class list {
             res,
             next
           );
-          bh = await this.blogListScript(bh);
-          //appendnew_next_sd_Oy9kBCdOVXmHKJ1b
+          bh = await this.userDeleteScript(bh);
+          //appendnew_next_sd_LwJbFbGZcSkPzdoj
         } catch (e) {
-          return await this.errorHandler(bh, e, 'sd_Oy9kBCdOVXmHKJ1b');
+          return await this.errorHandler(bh, e, 'sd_LwJbFbGZcSkPzdoj');
         }
       },
       this.sdService.getMiddlesWaresBySequenceId(
@@ -148,22 +152,25 @@ export class list {
         this.generatedMiddlewares
       )
     );
-    //appendnew_flow_list_HttpIn
+    //appendnew_flow_remove_HttpIn
   }
-  //   service flows_list
+  //   service flows_remove
 
-  //appendnew_flow_list_start
+  //appendnew_flow_remove_start
 
-  async blogListScript(bh) {
+  async userDeleteScript(bh) {
     try {
-      bh.local.query = 'SELECT * FROM blogs';
-      // bh.local.query = 'Delete FROM blogs where id=0';
-      // throw  new Error(2)
+      bh.local.query = `DELETE FROM users where name=${bh.input.params.name}`;
+
+      bh.local.response = {
+        status: 200,
+        message: 'User Deleted Successfully',
+      };
       bh = await this.sQLQuery(bh);
-      //appendnew_next_blogListScript
+      //appendnew_next_userDeleteScript
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_Oz8ikA0XSnKaaaME');
+      return await this.errorHandler(bh, e, 'sd_FWpghbQUBSzUJvor');
     }
   }
 
@@ -185,92 +192,26 @@ export class list {
       }
       let params = undefined;
       params = params ? params : [];
-      bh.local.blogs = await new GenericRDBMSOperations().executeSQL(
+      bh.local.result = await new GenericRDBMSOperations().executeSQL(
         connectionName,
         bh.local.query,
         params
       );
-      await this.hTTPResponse(bh);
+      await this.httpResponse(bh);
       //appendnew_next_sQLQuery
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_DHCkLhd7VKpj1QvD');
+      return await this.errorHandler(bh, e, 'sd_4EAUlG6bF3fOqyGl');
     }
   }
 
-  async hTTPResponse(bh) {
+  async httpResponse(bh) {
     try {
-      bh.web.res.status(200).send(bh.local.blogs);
+      bh.web.res.status(200).send(bh.local.response);
 
       return bh;
     } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_eagPH1D0HKqzBTks');
-    }
-  }
-
-  async sd_JHDhGbPtCotcq5j5(bh) {
-    try {
-      if (
-        this.sdService.operators['eq'](
-          bh.error.message,
-          '1',
-          undefined,
-          undefined
-        )
-      ) {
-        bh = await this.blogError(bh);
-      } else if (
-        this.sdService.operators['eq'](
-          bh.error.message,
-          '2',
-          undefined,
-          undefined
-        )
-      ) {
-        bh = await this.blogError2F(bh);
-      }
-
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_JHDhGbPtCotcq5j5');
-    }
-  }
-
-  async blogError(bh) {
-    try {
-      bh.local.error = {
-        code: bh.error.message,
-        message: 'Opps.. somthing went wrong !!!!',
-      };
-      await this.hTTPErrorOut(bh);
-      //appendnew_next_blogError
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_ZfQIjn2WO5nYRTJS');
-    }
-  }
-
-  async hTTPErrorOut(bh) {
-    try {
-      bh.web.res.status(500).send(bh.local.error);
-
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_GR8mm66e3eK7NX88');
-    }
-  }
-
-  async blogError2F(bh) {
-    try {
-      bh.local.error = {
-        code: bh.error.message,
-        message: 'Opps.. somthing went wrong !!!!',
-      };
-      await this.hTTPErrorOut(bh);
-      //appendnew_next_blogError2F
-      return bh;
-    } catch (e) {
-      return await this.errorHandler(bh, e, 'sd_vhMiZz4Pwv3L6N33');
+      return await this.errorHandler(bh, e, 'sd_eTstIZb2ojM5s8HS');
     }
   }
 
@@ -282,8 +223,7 @@ export class list {
     bh.errorSource = src;
 
     if (
-      false ||
-      (await this.error(bh))
+      false
       /*appendnew_next_Catch*/
     ) {
       return bh;
@@ -295,14 +235,5 @@ export class list {
       }
     }
   }
-  async error(bh) {
-    const nodes = ['sd_Oz8ikA0XSnKaaaME'];
-    if (nodes.includes(bh.errorSource)) {
-      bh = await this.sd_JHDhGbPtCotcq5j5(bh);
-      //appendnew_next_error
-      return true;
-    }
-    return false;
-  }
-  //appendnew_flow_list_Catch
+  //appendnew_flow_remove_Catch
 }

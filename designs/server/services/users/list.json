@@ -1,24 +1,24 @@
 [
     {
-        "id": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "id": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "type": "tab",
-        "createdDate": "2022-04-26T05:10:15.869Z",
+        "createdDate": "2022-04-27T07:42:05.170Z",
         "label": "list",
         "disabled": false,
         "info": "",
         "functionSeq": 0,
         "generateNext": true,
         "serviceName": "list",
-        "relativeParentPath": "blogController"
+        "relativeParentPath": "users"
     },
     {
-        "id": "sd_Oy9kBCdOVXmHKJ1b",
+        "id": "sd_VNl08xiTsdTKJfVx",
         "type": "HttpIn",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "server",
         "nodeType": "start",
         "name": "Get List",
-        "path": "blogs",
+        "path": "users",
         "uploadpath": "",
         "summary": "Fetching blogs list",
         "description": "for fetching details call the API with GET  method",
@@ -29,7 +29,7 @@
         "filetype": "path",
         "acceptFileUpload": false,
         "httpOptions": {
-            "blogs": {
+            "users": {
                 "get": {
                     "summary": "Fetching blogs list",
                     "description": "for fetching details call the API with GET  method",
@@ -40,7 +40,6 @@
                 }
             }
         },
-        "uploadFileOptions": {},
         "editableListData": {
             "responses": [],
             "params": [],
@@ -50,11 +49,11 @@
         "inputs": 0,
         "outputs": 1,
         "category": "HTTP",
-        "x": 140,
-        "y": 80,
+        "x": 165,
+        "y": 40,
         "wires": [
             [
-                "sd_Oz8ikA0XSnKaaaME"
+                "sd_QNef0YehNjB0gHVb"
             ]
         ],
         "__ssdTypeInputs__": {
@@ -69,19 +68,19 @@
         "__n_excludedFromValidation__": {},
         "generateNext": true,
         "serviceName": "list",
-        "functionName": "sd_Oy9kBCdOVXmHKJ1b"
+        "functionName": "sd_VNl08xiTsdTKJfVx"
     },
     {
-        "id": "sd_eagPH1D0HKqzBTks",
+        "id": "sd_RdynT6ippnfNv4iL",
         "type": "HttpOut",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "server",
         "nodeType": "flow",
         "name": "HTTP Response",
         "headers": {},
         "responseBody": {
             "type": "bh.local",
-            "value": "blogs",
+            "value": "response",
             "ssd_typedInputField": true
         },
         "httpcode": {
@@ -92,10 +91,9 @@
         "responseType": "obj",
         "responseMapping": {
             "status": 200,
-            "obj": "bh.local.blogs",
-            "send": "bh.local.blogs"
+            "obj": "bh.local.response",
+            "send": "bh.local.response"
         },
-        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -108,28 +106,28 @@
         },
         "functionName": "hTTPResponse",
         "category": "HTTP",
-        "x": 485,
-        "y": 80,
+        "x": 585,
+        "y": 40,
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
         "generated": true
     },
     {
-        "id": "sd_Oz8ikA0XSnKaaaME",
+        "id": "sd_QNef0YehNjB0gHVb",
         "type": "Script",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "common",
         "nodeType": "flow",
-        "name": "Blog list Script",
-        "script": "bh.local.query = 'SELECT * FROM blogs';\n// bh.local.query = 'Delete FROM blogs where id=0';\n// throw  new Error(2)",
-        "functionName": "blogListScript",
+        "name": "User list Script",
+        "script": "bh.local.query = 'SELECT * FROM users';\n\nbh.local.response = {\n    status: 200,\n    data: bh.local.users,\n    message: \"Users Fetch Successfully\"\n\n}",
+        "functionName": "userListScript",
         "category": "Function",
-        "x": 245,
-        "y": 80,
+        "x": 270,
+        "y": 40,
         "wires": [
             [
-                "sd_DHCkLhd7VKpj1QvD"
+                "sd_mmaRV8U35x5aKW66"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -137,17 +135,16 @@
         "generated": true
     },
     {
-        "id": "sd_DHCkLhd7VKpj1QvD",
+        "id": "sd_mmaRV8U35x5aKW66",
         "type": "ExecuteSql",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "server",
         "nodeType": "flow",
         "name": "SQL Query",
         "databaseConfig": "sd_etWr60jvxRofVqty",
-        "queryType": "",
         "resultMap": {
             "type": "bh.local",
-            "value": "blogs"
+            "value": "users"
         },
         "multipleQuery": "",
         "singleQuery": {
@@ -157,15 +154,14 @@
         "inputs": 1,
         "outputs": 1,
         "params": [],
-        "paramMappingObj": {},
         "dbType": "postgres",
         "functionName": "sQLQuery",
         "category": "Storage",
-        "x": 365,
-        "y": 80,
+        "x": 390,
+        "y": 40,
         "wires": [
             [
-                "sd_eagPH1D0HKqzBTks"
+                "sd_7CraUnErXY7Ra0sO"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -173,9 +169,9 @@
         "generated": true
     },
     {
-        "id": "sd_tFqxxPcB2RXpe45S",
+        "id": "sd_VYikplmZuSg2dRZn",
         "type": "Catch",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "common",
         "nodeType": "start",
         "name": "Error",
@@ -187,11 +183,11 @@
         "ignoreList": "",
         "functionName": "error",
         "category": "General",
-        "x": 145,
-        "y": 220,
+        "x": 170,
+        "y": 180,
         "wires": [
             [
-                "sd_JHDhGbPtCotcq5j5"
+                "sd_Z6xriyQHJPYT6UoI"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -199,20 +195,20 @@
         "serviceName": "list"
     },
     {
-        "id": "sd_ZfQIjn2WO5nYRTJS",
+        "id": "sd_x1KZTohc8WyN81ws",
         "type": "Script",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "common",
         "nodeType": "flow",
-        "name": "Blog Error",
+        "name": "User Error",
         "script": "bh.local.error ={\n    code:bh.error.message,\n    message:'Opps.. somthing went wrong !!!!'\n}",
-        "functionName": "blogError",
+        "functionName": "userError",
         "category": "Function",
-        "x": 365,
-        "y": 180,
+        "x": 390,
+        "y": 140,
         "wires": [
             [
-                "sd_GR8mm66e3eK7NX88"
+                "sd_VTiZt14wLWMHHiiD"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -220,9 +216,9 @@
         "generated": true
     },
     {
-        "id": "sd_GR8mm66e3eK7NX88",
+        "id": "sd_VTiZt14wLWMHHiiD",
         "type": "HttpOut",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "server",
         "nodeType": "flow",
         "name": "HTTP error out",
@@ -243,6 +239,7 @@
             "obj": "bh.local.error",
             "send": "bh.local.error"
         },
+        "cookies": [],
         "inputs": 1,
         "outputs": 0,
         "editableListData": {
@@ -255,28 +252,28 @@
         },
         "functionName": "hTTPErrorOut",
         "category": "HTTP",
-        "x": 505,
-        "y": 220,
+        "x": 530,
+        "y": 180,
         "wires": [],
         "__n_excludedFromValidation__": {},
         "generateNext": false,
         "generated": true
     },
     {
-        "id": "sd_vhMiZz4Pwv3L6N33",
+        "id": "sd_eS5WAIqLb0aYA7MM",
         "type": "Script",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "common",
         "nodeType": "flow",
         "name": "Blog Error2 F",
         "script": "bh.local.error = {\n    code: bh.error.message,\n    message: 'Opps.. somthing went wrong !!!!'\n}",
         "functionName": "blogError2F",
         "category": "Function",
-        "x": 365,
-        "y": 280,
+        "x": 390,
+        "y": 240,
         "wires": [
             [
-                "sd_GR8mm66e3eK7NX88"
+                "sd_VTiZt14wLWMHHiiD"
             ]
         ],
         "__n_excludedFromValidation__": {},
@@ -284,9 +281,9 @@
         "generated": true
     },
     {
-        "id": "sd_JHDhGbPtCotcq5j5",
+        "id": "sd_Z6xriyQHJPYT6UoI",
         "type": "Switch",
-        "z": "SSD_SERVICE_ID_sd_swjkCUcj91ofYf4a",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
         "viewType": "common",
         "nodeType": "flow",
         "name": "",
@@ -310,16 +307,37 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "functionName": "sd_JHDhGbPtCotcq5j5",
+        "functionName": "sd_Z6xriyQHJPYT6UoI",
         "category": "Function",
-        "x": 245,
-        "y": 220,
+        "x": 270,
+        "y": 180,
         "wires": [
             [
-                "sd_ZfQIjn2WO5nYRTJS"
+                "sd_x1KZTohc8WyN81ws"
             ],
             [
-                "sd_vhMiZz4Pwv3L6N33"
+                "sd_eS5WAIqLb0aYA7MM"
+            ]
+        ],
+        "__n_excludedFromValidation__": {},
+        "generateNext": false,
+        "generated": true
+    },
+    {
+        "id": "sd_7CraUnErXY7Ra0sO",
+        "type": "Script",
+        "z": "SSD_SERVICE_ID_sd_EIxzjYQTGIPYUJ5V",
+        "viewType": "common",
+        "nodeType": "flow",
+        "name": "User list Script 1",
+        "script": "bh.local.response = {\n    status: 200,\n    data: bh.local.users,\n    message: \"Users Fetch Successfully\"\n\n}",
+        "functionName": "userListScript1",
+        "category": "Function",
+        "x": 485,
+        "y": 40,
+        "wires": [
+            [
+                "sd_RdynT6ippnfNv4iL"
             ]
         ],
         "__n_excludedFromValidation__": {},
