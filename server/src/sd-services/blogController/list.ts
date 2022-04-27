@@ -213,7 +213,7 @@ export class list {
       } else {
         throw new Error('Cannot find the selected config name');
       }
-      let params = [];
+      let params = undefined;
       params = params ? params : [];
       bh.local.blogs = await new GenericRDBMSOperations().executeSQL(
         connectionName,
@@ -242,7 +242,8 @@ export class list {
 
   async hTTPResponse(bh) {
     try {
-      bh.web.next();
+      bh.web.res.status(200).send(bh.local.blogs);
+
       return bh;
     } catch (e) {
       return await this.errorHandler(bh, e, 'sd_eagPH1D0HKqzBTks');

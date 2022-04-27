@@ -88,10 +88,11 @@
             "value": 200,
             "ssd_typedInputField": true
         },
-        "responseType": "next",
+        "responseType": "obj",
         "responseMapping": {
             "status": 200,
-            "next": "bh.local.blogs"
+            "obj": "bh.local.blogs",
+            "send": "bh.local.blogs"
         },
         "inputs": 1,
         "outputs": 0,
@@ -143,6 +144,7 @@
         "nodeType": "flow",
         "name": "SQL Query",
         "databaseConfig": "sd_etWr60jvxRofVqty",
+        "queryType": "",
         "resultMap": {
             "type": "bh.local",
             "value": "blogs"
@@ -155,6 +157,7 @@
         "inputs": 1,
         "outputs": 1,
         "params": [],
+        "paramMappingObj": {},
         "dbType": "postgres",
         "functionName": "sQLQuery",
         "category": "Storage",
