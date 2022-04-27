@@ -1,13 +1,14 @@
 {
-    "displayName": "be-app",
-    "appName": "be-app",
+    "displayName": "backend",
+    "appName": "backend",
     "description": "backend",
-    "lastModified": "2022-04-26T05:02:43.921Z",
-    "imgSourcePath": "",
+    "lastModified": "2022-04-27T05:03:19.564Z",
+    "imgSourcePath": "appIcon-1651035799559.png",
     "version": "1.0.0",
     "appType": "apiOnly",
     "templateName": "blank",
     "createDate": "2022-04-26T05:02:43.541Z",
     "analyticsId": "6bcb72d7-362a-f5a9-aeb2-93c7b336f7e5",
-    "createdStudioVersion": "8.1.1"
+    "createdStudioVersion": "8.1.1",
+    "isCorrupt": false
 }
